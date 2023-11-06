@@ -3,7 +3,10 @@ body {
     font-size: medium;
     background: #3c3834;
     color: #3c3834;
-    margin: 20px;
+    margin: 10px;
+}
+h1 {
+  font-size: x-large;
 }
 a {
     color: #3c3834;
@@ -64,7 +67,7 @@ a {
   .accordion {
     background-color: inherit;
     cursor: pointer;
-    padding: 18px;
+    padding: 10px;
     border: none;
     text-align: left;
     outline: none;
