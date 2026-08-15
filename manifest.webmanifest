@@ -1,0 +1,16 @@
+{
+	"name": "Voyager au Japon",
+	"short_name": "Japon",
+	"description": "Carnet de voyage au Japon : cartes, itinéraires et informations pratiques.",
+	"lang": "fr",
+	"start_url": "./index.html",
+	"scope": "./",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"background_color": "#efdfca",
+	"theme_color": "#3c3834",
+	"icons": [
+		{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+		{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+	]
+}
