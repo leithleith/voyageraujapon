@@ -222,15 +222,6 @@ a {
 	fill: var(--ink);
 }
 
-.nav-link--logo {
-	background: var(--ink);
-}
-
-.nav-link--logo:hover,
-.nav-link--logo[aria-selected="true"] {
-	background: var(--ink-soft);
-}
-
 @media (min-width: 900px) {
 	.nav-toggle {
 		display: none;
@@ -393,6 +384,47 @@ a {
 	margin: 0.75rem 0;
 }
 
+/* Festivals (matsuri) table */
+
+.festival-table-wrap {
+	overflow-x: auto;
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow);
+}
+
+.festival-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: rgba(255, 255, 255, 0.35);
+	font-size: 0.9rem;
+}
+
+.festival-table th,
+.festival-table td {
+	text-align: left;
+	padding: 0.5rem 0.75rem;
+	border-bottom: 1px solid rgba(60, 56, 52, 0.15);
+}
+
+.festival-table th {
+	font-weight: 700;
+	background: rgba(60, 56, 52, 0.1);
+}
+
+.festival-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.festival-sources-lead {
+	margin-bottom: 0.25rem;
+	font-weight: 600;
+}
+
+.festival-sources-list {
+	margin: 0;
+	padding-inline-start: 1.25rem;
+}
+
 /* ---- Footer ---- */
 
 .site-footer {
@@ -428,9 +460,36 @@ a {
 .footer-links {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: center;
 	gap: 0.5rem;
 	opacity: 0.85;
+}
+
+.footer-links__group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.footer-japanguide {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.4rem 0.7rem;
+	border-radius: var(--radius-sm);
+	background: var(--ink);
+	transition: background var(--transition-fast);
+}
+
+.footer-japanguide:hover,
+.footer-japanguide:focus-visible {
+	background: var(--ink-soft);
+}
+
+.footer-japanguide:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
 }
 
 .license-link,
