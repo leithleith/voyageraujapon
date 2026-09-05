@@ -54,19 +54,16 @@
 		</nav>
 		<!--<div class="deco-row" aria-hidden="true"></div>-->
 	</header>
-
 	<main class="content">
 		<section id="home" class="tab-panel home-panel" data-panel aria-label="Accueil">
 			<div class="home-haiku" id="homeHaikuSlot">
 				<div class="haiku" id="haiku"><p><small>旅に飽きて &#8211; Las de voyager<br>けふ幾日やら &#8211; Apr&egrave;s quelques jours<br>秋の風 &#8211; Le vent d&rsquo;Automne</small></p><p><small>松尾 芭蕉 &#8211; Matsuo Bashō</small></p></div>
 			</div>
 		</section>
-
 		<section id="carte" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-carte" hidden>
 			<h2 id="tab-carte">Lieux visit&eacute;s</h2>
 			<div class="h_iframe"><iframe loading="lazy" src="https://www.google.com/maps/d/embed?mid=1KR3plAPNaqcyj1k146EGcdTZPdGhau2o"></iframe></div>
 		</section>
-
 		<section id="itineraires" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-itineraires" hidden>
 			<h2 id="tab-itineraires">Itin&eacute;raires</h2>
 			<p class="section-lead"><strong>Itin&eacute;raires&nbsp;:</strong></p>
@@ -131,18 +128,20 @@
 			</div>
 			<ul><li>arrivée à l’aéroport de Haneda et Narita</li><li>3 jours à Tokyo</li><li>Road trip à Kyushu</li><li>Ile de Yakushima</li><li>Dernière nuit à Haneda</li><li>Retour de l&rsquo;aéroport de Haneda</li></ul></div></details></div>
 		</section>
-
 		<section id="topo" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-topo" hidden>
 			<h2 id="tab-topo">Carte Topographique</h2>
 			<div class="h_iframe"><div id="topoMap"></div></div>
 		</section>
-
 		<section id="koyo" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-koyo" hidden>
 			<h2 id="tab-koyo">K&#333;y&#333; (紅葉)</h2>
 			<p class="section-lead">Les couleurs de l'automne :</p>
+			<div class="koyo-gallery">
+				<a class="koyo-card" href="https://tenki.jp/kouyou/" target="_blank" rel="noopener noreferrer">
+					<img src="https://static.tenki.jp/static-images/kouyou/chart-large.jpg" alt="K&#333;y&#333; au Japon – pleine coloration" loading="lazy">
+				</a>
+			</div>
 			<div class="h_iframe h_iframe--map"><div id="kouyou-map-wrap" aria-label="Carte des meilleurs lieux de koyo"></div></div>
 		</section>
-
 		<section id="sakura" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-sakura" hidden>
 			<h2 id="tab-sakura">Sakura (桜)</h2>
 			<p class="section-lead">Les fleurs de cerisier :</p>
@@ -154,18 +153,16 @@
 					<img src="https://i-storage.tenki.jp/large/storage/static-images/feature/image/8/82/827/827/large.jpg" alt="Sakura au Japon – pleine floraison" loading="lazy">
 				</a>
 			</div>
+			<div class="h_iframe h_iframe--map"><div id="sakura-map-wrap" aria-label="Carte des meilleurs lieux de sakura"></div></div>
 		</section>
-
 		<section id="kyoto" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-kyoto" hidden>
 			<h2 id="tab-kyoto">Navigation Kyoto</h2>
 			<div class="h_iframe"><iframe loading="lazy" src="https://platinumaps.jp/maps/kyoto-smart-navi"></iframe></div>
 		</section>
-
 		<section id="frequentation" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-frequentation" hidden>
 			<h2 id="tab-frequentation">Fr&eacute;quentation Kyoto</h2>
 			<div class="h_iframe"><iframe loading="lazy" src="https://global.kyoto.travel/en/comfort/" title="Fr&eacute;quentation Kyoto"></iframe></div>
 		</section>
-
 		<section id="matsuri" class="tab-panel" data-panel role="tabpanel" aria-labelledby="tab-matsuri" hidden>
 			<h2 id="tab-matsuri">Matsuri (&#x796D;&#x308A;)</h2>
 			<p class="section-lead">Calendrier chronologique de quelques-uns des plus grands festivals traditionnels japonais&nbsp;:</p>
@@ -226,7 +223,6 @@
 			</ul>
 		</section>
 	</main>
-
 	<footer class="site-footer">
 		<!--<div class="deco-row" aria-hidden="true"></div>-->
 		<div class="haiku-slot" id="footerHaikuSlot"></div>
