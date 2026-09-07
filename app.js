@@ -1,5 +1,4 @@
-// Voyager au Japon — logique de navigation (onglets, menu mobile, accordéon natif) et applicative
-// Contrôle plein écran Leaflet (ex Control.FullScreen.js) : basé sur le paquet 'screenfull' — v5.2.0 — (c) Sindre Sorhus — Licence MIT
+// Voyager au Japon - logique de navigation (onglets, menu mobile, accordéon natif) et applicative - Contrôle plein écran Leaflet (ex Control.FullScreen.js) : basé sur le paquet 'screenfull' — v5.2.0 — (c) Sindre Sorhus — Licence MIT
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define('screenfull', factory);
@@ -1116,8 +1115,21 @@
 			attribution: '<a href="https://maps.gsi.go.jp/development/index.html" target="_blank" rel="noopener">国土地理院</a>'
 		}).addTo(koyoMap);
 		L.control.scale({ imperial: true }).addTo(koyoMap);
+		var kouyouIcon = L.icon({
+    		iconUrl: 'kouyou-icon.png',
+			iconSize:     [32, 32],
+    		iconAnchor:   [32, 32],
+    		popupAnchor:  [-5, -10]
+		});
+		var kouyouIcon2 = L.icon({
+    		iconUrl: 'kouyou2-icon.png',
+			iconSize:     [32, 32],
+    		iconAnchor:   [32, 32],
+    		popupAnchor:  [-5, -10]
+		});
 		pointsKouyou.forEach(([lat, lng, name, href, img, info]) => {
-			L.marker([lat, lng]).addTo(koyoMap).bindPopup(
+			const icon = Math.random() < 0.5 ? kouyouIcon : kouyouIcon2;
+			L.marker([lat, lng], { icon: icon }).addTo(koyoMap).bindPopup(
 				'<div class="clearfix">' +
 				'<div class="map-point-kouyou-name" style="width:215px;"><a href="' + href + '" target="_blank" rel="noopener">' + name + '</a></div>' +
 				'<div class="map-point-kouyou-img"><a href="' + href + '" target="_blank" rel="noopener"><img src="' + img + '" width="60" height="60" alt="' + name + '" title="' + name + '"></a></div>' +
@@ -2139,8 +2151,21 @@ let sakuraMap = null;
 			attribution: '<a href="https://maps.gsi.go.jp/development/index.html" target="_blank" rel="noopener">国土地理院</a>'
 		}).addTo(sakuraMap);
 		L.control.scale({ imperial: true }).addTo(sakuraMap);
+		var sakuraIcon = L.icon({
+			iconUrl: 'sakura-icon.png',
+			iconSize:     [32, 32],
+			iconAnchor:   [32, 32],
+			popupAnchor:  [-5, -10]
+		});
+		var sakuraIcon2 = L.icon({
+			iconUrl: 'sakura2-icon.png',
+			iconSize:     [32, 32],
+			iconAnchor:   [32, 32],
+			popupAnchor:  [-5, -10]
+		});
 		pointsSakura.forEach(([lat, lng, name, href, img, info]) => {
-			L.marker([lat, lng]).addTo(sakuraMap).bindPopup(
+			const icon = Math.random() < 0.5 ? sakuraIcon : sakuraIcon2;
+			L.marker([lat, lng], { icon }).addTo(sakuraMap).bindPopup(
 				'<div class="clearfix">' +
 				'<div class="map-point-sakura-name" style="width:215px;"><a href="' + href + '" target="_blank" rel="noopener">' + name + '</a></div>' +
 				'<div class="map-point-sakura-img"><a href="' + href + '" target="_blank" rel="noopener"><img src="' + img + '" width="60" height="60" alt="' + name + '" title="' + name + '"></a></div>' +
