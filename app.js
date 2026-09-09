@@ -1,4 +1,4 @@
-// Voyager au Japon - logique de navigation (onglets, menu mobile, accordéon natif) et applicative - Contrôle plein écran Leaflet (ex Control.FullScreen.js) : basé sur le paquet 'screenfull' — v5.2.0 — (c) Sindre Sorhus — Licence MIT
+// Voyager au Japon - Contrôle plein écran Leaflet (ex Control.FullScreen.js) : basé sur le paquet 'screenfull' — v5.2.0 — (c) Sindre Sorhus — Licence MIT
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define('screenfull', factory);
@@ -2180,7 +2180,6 @@ let sakuraMap = null;
 			const isActive = panel.id === tabId;
 			panel.hidden = !isActive;
 			if (isActive) {
-				// ne charge la carte (et ne déclenche la géolocalisation) qu'à l'activation de l'onglet
 				const lazyIframe = panel.querySelector('iframe[data-src]');
 				if (lazyIframe) {
 					lazyIframe.src = lazyIframe.dataset.src;
@@ -2190,7 +2189,7 @@ let sakuraMap = null;
 		});
 		if (tabId === 'topo') initTopoMap();
 		if (tabId === 'kouyou') initKoyoMap();
-		if (tabId === 'sakura') initSakuraMap();
+		if (tabId === 'sakurasection') initSakuraMap();
 		navLinks.forEach((link) => {
 			link.setAttribute('aria-selected', link.getAttribute('data-tab') === tabId ? 'true' : 'false');
 		});
@@ -2644,3 +2643,449 @@ window.KoyoMap = (function () {
   return { mount };
 })();
 KoyoMap.mount('#koyo');
+window.SAKURA_DATA = {
+  prefs: [
+    { c:'JP-01', ja:'北海道',   r:'Hokkaidō',  lat:43.40, lon:142.80, alt:20,  slat:43.06, slon:141.35, open:'05-01', full:'05-06', jmc:1, st:'Sapporo' },
+    { c:'JP-02', ja:'青森県',   r:'Aomori',    lat:40.75, lon:140.80, alt:15,  slat:40.82, slon:140.75, open:'04-22', full:'04-26', jmc:1, st:'Aomori' },
+    { c:'JP-03', ja:'岩手県',   r:'Iwate',     lat:39.60, lon:141.30, alt:130, slat:39.70, slon:141.15, open:'04-18', full:'04-24', jmc:1, st:'Morioka' },
+    { c:'JP-04', ja:'宮城県',   r:'Miyagi',    lat:38.50, lon:140.90, alt:40,  slat:38.27, slon:140.87, open:'04-08', full:'04-13', jmc:1, st:'Sendai' },
+    { c:'JP-05', ja:'秋田県',   r:'Akita',     lat:39.80, lon:140.40, alt:20,  slat:39.72, slon:140.10, open:'04-17', full:'04-22', jmc:1, st:'Akita' },
+    { c:'JP-06', ja:'山形県',   r:'Yamagata',  lat:38.40, lon:140.10, alt:150, slat:38.24, slon:140.36, open:'04-13', full:'04-18', jmc:1, st:'Yamagata' },
+    { c:'JP-07', ja:'福島県',   r:'Fukushima', lat:37.40, lon:140.20, alt:70,  slat:37.75, slon:140.47, open:'04-07', full:'04-11', jmc:1, st:'Fukushima' },
+    { c:'JP-08', ja:'茨城県',   r:'Ibaraki',   lat:36.30, lon:140.30, alt:30,  slat:36.37, slon:140.47, open:'03-30', full:'04-06', jmc:1, st:'Mito' },
+    { c:'JP-09', ja:'栃木県',   r:'Tochigi',   lat:36.70, lon:139.80, alt:120, slat:36.56, slon:139.88, open:'03-30', full:'04-06', jmc:1, st:'Utsunomiya' },
+    { c:'JP-10', ja:'群馬県',   r:'Gunma',     lat:36.50, lon:138.90, alt:110, slat:36.39, slon:139.06, open:'03-29', full:'04-05', jmc:1, st:'Maebashi' },
+    { c:'JP-11', ja:'埼玉県',   r:'Saitama',   lat:36.00, lon:139.40, alt:30,  slat:36.15, slon:139.39, open:'03-27', full:'04-03', jmc:1, st:'Kumagaya' },
+    { c:'JP-12', ja:'千葉県',   r:'Chiba',     lat:35.50, lon:140.20, alt:20,  slat:35.73, slon:140.83, open:'03-30', full:'04-06', jmc:1, st:'Chōshi' },
+    { c:'JP-13', ja:'東京都',   r:'Tōkyō',     lat:35.70, lon:139.40, alt:20,  slat:35.69, slon:139.69, open:'03-24', full:'03-31', jmc:1, st:'Tōkyō (Yasukuni)' },
+    { c:'JP-14', ja:'神奈川県', r:'Kanagawa',  lat:35.40, lon:139.30, alt:15,  slat:35.45, slon:139.64, open:'03-25', full:'04-01', jmc:1, st:'Yokohama' },
+    { c:'JP-15', ja:'新潟県',   r:'Niigata',   lat:37.60, lon:138.90, alt:10,  slat:37.90, slon:139.02, open:'04-08', full:'04-13', jmc:1, st:'Niigata' },
+    { c:'JP-16', ja:'富山県',   r:'Toyama',    lat:36.60, lon:137.30, alt:10,  slat:36.70, slon:137.21, open:'04-03', full:'04-08', jmc:1, st:'Toyama' },
+    { c:'JP-17', ja:'石川県',   r:'Ishikawa',  lat:36.70, lon:136.80, alt:30,  slat:36.56, slon:136.66, open:'04-03', full:'04-08', jmc:1, st:'Kanazawa' },
+    { c:'JP-18', ja:'福井県',   r:'Fukui',     lat:35.80, lon:136.20, alt:15,  slat:36.06, slon:136.22, open:'04-01', full:'04-07', jmc:1, st:'Fukui' },
+    { c:'JP-19', ja:'山梨県',   r:'Yamanashi', lat:35.60, lon:138.60, alt:270, slat:35.66, slon:138.57, open:'03-25', full:'04-02', jmc:1, st:'Kōfu' },
+    { c:'JP-20', ja:'長野県',   r:'Nagano',    lat:36.20, lon:138.10, alt:370, slat:36.65, slon:138.18, open:'04-11', full:'04-16', jmc:1, st:'Nagano' },
+    { c:'JP-21', ja:'岐阜県',   r:'Gifu',      lat:35.80, lon:137.00, alt:15,  slat:35.42, slon:136.76, open:'03-25', full:'04-02', jmc:1, st:'Gifu' },
+    { c:'JP-22', ja:'静岡県',   r:'Shizuoka',  lat:35.00, lon:138.30, alt:15,  slat:34.98, slon:138.38, open:'03-24', full:'04-02', jmc:1, st:'Shizuoka' },
+    { c:'JP-23', ja:'愛知県',   r:'Aichi',     lat:35.10, lon:137.10, alt:15,  slat:35.18, slon:136.91, open:'03-24', full:'04-02', jmc:1, st:'Nagoya' },
+    { c:'JP-24', ja:'三重県',   r:'Mie',       lat:34.50, lon:136.30, alt:10,  slat:34.73, slon:136.51, open:'03-29', full:'04-03', jmc:1, st:'Tsu' },
+    { c:'JP-25', ja:'滋賀県',   r:'Shiga',     lat:35.20, lon:136.10, alt:90,  slat:35.27, slon:136.24, open:'04-01', full:'04-08', jmc:1, st:'Hikone' },
+    { c:'JP-26', ja:'京都府',   r:'Kyōto',     lat:35.20, lon:135.50, alt:50,  slat:35.01, slon:135.77, open:'03-26', full:'04-04', jmc:1, st:'Kyōto' },
+    { c:'JP-27', ja:'大阪府',   r:'Ōsaka',     lat:34.60, lon:135.50, alt:10,  slat:34.69, slon:135.50, open:'03-27', full:'04-04', jmc:1, st:'Ōsaka' },
+    { c:'JP-28', ja:'兵庫県',   r:'Hyōgo',     lat:35.00, lon:134.80, alt:15,  slat:34.69, slon:135.20, open:'03-27', full:'04-05', jmc:1, st:'Kōbe' },
+    { c:'JP-29', ja:'奈良県',   r:'Nara',      lat:34.30, lon:135.90, alt:100, slat:34.68, slon:135.83, open:'03-28', full:'04-04', jmc:1, st:'Nara' },
+    { c:'JP-30', ja:'和歌山県', r:'Wakayama',  lat:33.90, lon:135.50, alt:15,  slat:34.23, slon:135.17, open:'03-24', full:'04-03', jmc:1, st:'Wakayama' },
+    { c:'JP-31', ja:'鳥取県',   r:'Tottori',   lat:35.40, lon:133.90, alt:10,  slat:35.50, slon:134.24, open:'03-29', full:'04-05', jmc:1, st:'Tottori' },
+    { c:'JP-32', ja:'島根県',   r:'Shimane',   lat:35.00, lon:132.60, alt:10,  slat:35.47, slon:133.05, open:'03-29', full:'04-05', jmc:1, st:'Matsue' },
+    { c:'JP-33', ja:'岡山県',   r:'Okayama',   lat:34.90, lon:133.80, alt:10,  slat:34.66, slon:133.93, open:'03-28', full:'04-04', jmc:1, st:'Okayama' },
+    { c:'JP-34', ja:'広島県',   r:'Hiroshima', lat:34.60, lon:132.80, alt:10,  slat:34.39, slon:132.46, open:'03-25', full:'04-03', jmc:1, st:'Hiroshima' },
+    { c:'JP-35', ja:'山口県',   r:'Yamaguchi', lat:34.20, lon:131.50, alt:20,  slat:33.95, slon:130.94, open:'03-26', full:'04-04', jmc:1, st:'Shimonoseki' },
+    { c:'JP-36', ja:'徳島県',   r:'Tokushima', lat:33.90, lon:134.30, alt:10,  slat:34.07, slon:134.55, open:'03-28', full:'04-04', jmc:1, st:'Tokushima' },
+    { c:'JP-37', ja:'香川県',   r:'Kagawa',    lat:34.20, lon:134.00, alt:10,  slat:34.34, slon:134.05, open:'03-27', full:'04-04', jmc:1, st:'Takamatsu' },
+    { c:'JP-38', ja:'愛媛県',   r:'Ehime',     lat:33.70, lon:132.90, alt:30,  slat:33.84, slon:132.77, open:'03-24', full:'04-03', jmc:1, st:'Matsuyama' },
+    { c:'JP-39', ja:'高知県',   r:'Kōchi',     lat:33.50, lon:133.40, alt:10,  slat:33.56, slon:133.53, open:'03-22', full:'03-30', jmc:1, st:'Kōchi' },
+    { c:'JP-40', ja:'福岡県',   r:'Fukuoka',   lat:33.50, lon:130.60, alt:10,  slat:33.59, slon:130.40, open:'03-22', full:'03-31', jmc:1, st:'Fukuoka' },
+    { c:'JP-41', ja:'佐賀県',   r:'Saga',      lat:33.30, lon:130.10, alt:10,  slat:33.25, slon:130.30, open:'03-23', full:'04-02', st:'Saga' },
+    { c:'JP-42', ja:'長崎県',   r:'Nagasaki',  lat:33.00, lon:129.70, alt:20,  slat:32.75, slon:129.87, open:'03-23', full:'04-02', st:'Nagasaki' },
+    { c:'JP-43', ja:'熊本県',   r:'Kumamoto',  lat:32.60, lon:130.80, alt:30,  slat:32.80, slon:130.71, open:'03-22', full:'04-01', st:'Kumamoto' },
+    { c:'JP-44', ja:'大分県',   r:'Ōita',      lat:33.20, lon:131.40, alt:10,  slat:33.24, slon:131.61, open:'03-25', full:'04-03', st:'Ōita' },
+    { c:'JP-45', ja:'宮崎県',   r:'Miyazaki',  lat:32.20, lon:131.30, alt:10,  slat:31.91, slon:131.42, open:'03-24', full:'04-03', st:'Miyazaki' },
+    { c:'JP-46', ja:'鹿児島県', r:'Kagoshima', lat:31.50, lon:130.60, alt:10,  slat:31.60, slon:130.56, open:'03-26', full:'04-05', jmc:1, st:'Kagoshima' },
+    { c:'JP-47', ja:'沖縄県',   r:'Okinawa',   lat:26.40, lon:127.90, alt:10,  slat:26.21, slon:127.68, open:'01-18', full:'02-04', kanhi:1, st:'Naha' }
+  ],
+  spots: [
+    { n:'Hakodate',           lat:41.77, lon:140.73, alt:30,   open:'04-28', full:'05-02', jmc:1 },
+    { n:'Muroran',            lat:42.32, lon:140.97, alt:40,   open:'05-04', full:'05-09', jmc:1 },
+    { n:'Asahikawa',          lat:43.77, lon:142.37, alt:110,  open:'05-03', full:'05-07' },
+    { n:'Obihiro',            lat:42.92, lon:143.20, alt:40,   open:'05-04', full:'05-08' },
+    { n:'Kushiro',            lat:42.98, lon:144.38, alt:30,   open:'05-13', full:'05-17' },
+    { n:'Abashiri',           lat:44.02, lon:144.27, alt:30,   open:'05-10', full:'05-14' },
+    { n:'Wakkanai',           lat:45.42, lon:141.68, alt:10,   open:'05-17', full:'05-21' },
+    { n:'Matsumae',           lat:41.43, lon:140.11, alt:20,   open:'04-29', full:'05-04' },
+    { n:'Shizunai Nijikken',  lat:42.35, lon:142.37, alt:50,   open:'05-05', full:'05-09' },
+    { n:'Hirosaki',           lat:40.61, lon:140.46, alt:50,   open:'04-21', full:'04-25' },
+    { n:'Hachinohe',          lat:40.51, lon:141.49, alt:20,   open:'04-22', full:'04-26' },
+    { n:'Kakunodate',         lat:39.60, lon:140.56, alt:60,   open:'04-20', full:'04-25' },
+    { n:'Lac Tazawa',         lat:39.72, lon:140.66, alt:250,  open:'04-26', full:'05-01' },
+    { n:'Towada / Oirase',    lat:40.47, lon:140.90, alt:400,  open:'04-28', full:'05-02' },
+    { n:'Kitakami Tenshōchi', lat:39.29, lon:141.11, alt:90,   open:'04-17', full:'04-22' },
+    { n:'Hanamaki',           lat:39.39, lon:141.12, alt:110,  open:'04-17', full:'04-22' },
+    { n:'Naruko',             lat:38.75, lon:140.72, alt:300,  open:'04-20', full:'04-25' },
+    { n:'Matsushima',         lat:38.37, lon:141.06, alt:10,   open:'04-10', full:'04-15' },
+    { n:'Zaō Onsen',          lat:38.16, lon:140.40, alt:900,  open:'05-02', full:'05-06' },
+    { n:'Ginzan Onsen',       lat:38.57, lon:140.53, alt:450,  open:'04-22', full:'04-26' },
+    { n:'Aizu-Wakamatsu',     lat:37.49, lon:139.93, alt:210,  open:'04-12', full:'04-17' },
+    { n:'Miharu Takizakura',  lat:37.44, lon:140.49, alt:400,  open:'04-12', full:'04-16' },
+    { n:'Kamakura',           lat:35.32, lon:139.55, alt:20,   open:'03-27', full:'04-03' },
+    { n:'Odawara',            lat:35.25, lon:139.15, alt:20,   open:'03-26', full:'04-02' },
+    { n:'Takao-san',          lat:35.63, lon:139.24, alt:600,  open:'04-05', full:'04-11' },
+    { n:'Okutama',            lat:35.81, lon:139.10, alt:600,  open:'04-08', full:'04-14' },
+    { n:'Chichibu',           lat:35.99, lon:139.08, alt:250,  open:'04-02', full:'04-08' },
+    { n:'Nikkō',              lat:36.75, lon:139.61, alt:600,  open:'04-16', full:'04-21' },
+    { n:'Lac Chūzenji',       lat:36.73, lon:139.48, alt:1270, open:'05-03', full:'05-08' },
+    { n:'Kinugawa',           lat:36.82, lon:139.70, alt:400,  open:'04-14', full:'04-19' },
+    { n:'Ikaho',              lat:36.49, lon:138.92, alt:700,  open:'04-16', full:'04-21' },
+    { n:'Kusatsu',            lat:36.62, lon:138.60, alt:1150, open:'04-28', full:'05-03' },
+    { n:'Hakone / Ashi',      lat:35.21, lon:139.02, alt:730,  open:'04-09', full:'04-15' },
+    { n:'Karuizawa',          lat:36.35, lon:138.60, alt:940,  open:'04-20', full:'04-25' },
+    { n:'Kawaguchiko',        lat:35.51, lon:138.76, alt:840,  open:'04-14', full:'04-19' },
+    { n:'Fujinomiya',         lat:35.22, lon:138.62, alt:120,  open:'03-29', full:'04-05' },
+    { n:'Matsumoto',          lat:36.24, lon:137.97, alt:600,  open:'04-08', full:'04-13' },
+    { n:'Takatō',             lat:35.83, lon:138.06, alt:800,  open:'04-11', full:'04-15' },
+    { n:'Takayama / Hida',    lat:36.14, lon:137.25, alt:570,  open:'04-14', full:'04-19' },
+    { n:'Shirakawa-gō',       lat:36.26, lon:136.91, alt:500,  open:'04-14', full:'04-19' },
+    { n:'Gujō-Hachiman',      lat:35.75, lon:136.96, alt:220,  open:'04-05', full:'04-10' },
+    { n:'Yuzawa',             lat:36.94, lon:138.81, alt:350,  open:'04-14', full:'04-19' },
+    { n:'Takada (Jōetsu)',    lat:37.11, lon:138.25, alt:20,   open:'04-05', full:'04-10' },
+    { n:'Yahiko',             lat:37.71, lon:138.83, alt:60,   open:'04-08', full:'04-13' },
+    { n:'Sado',               lat:38.02, lon:138.37, alt:20,   open:'04-08', full:'04-13' },
+    { n:'Eihei-ji',           lat:36.06, lon:136.36, alt:200,  open:'04-06', full:'04-11' },
+    { n:'Arashiyama',         lat:35.01, lon:135.67, alt:50,   open:'03-27', full:'04-05' },
+    { n:'Daigo-ji',           lat:34.95, lon:135.82, alt:60,   open:'03-27', full:'04-04' },
+    { n:'Ōhara',              lat:35.12, lon:135.83, alt:250,  open:'04-01', full:'04-08' },
+    { n:'Amanohashidate',     lat:35.57, lon:135.19, alt:10,   open:'04-02', full:'04-08' },
+    { n:'Yoshino (shimo)',    lat:34.37, lon:135.86, alt:350,  open:'04-02', full:'04-07' },
+    { n:'Yoshino (oku)',      lat:34.35, lon:135.90, alt:700,  open:'04-09', full:'04-14' },
+    { n:'Kōyasan',            lat:34.21, lon:135.58, alt:850,  open:'04-17', full:'04-22' },
+    { n:'Himeji',             lat:34.84, lon:134.69, alt:40,   open:'03-28', full:'04-04' },
+    { n:'Rokkō-san',          lat:34.78, lon:135.26, alt:900,  open:'04-12', full:'04-18' },
+    { n:'Kinosaki',           lat:35.62, lon:134.81, alt:20,   open:'04-01', full:'04-07' },
+    { n:'Miyajima',           lat:34.28, lon:132.32, alt:30,   open:'03-28', full:'04-05' },
+    { n:'Kintai-kyō',         lat:34.17, lon:132.18, alt:20,   open:'03-28', full:'04-04' },
+    { n:'Sandan-kyō',         lat:34.62, lon:132.16, alt:400,  open:'04-08', full:'04-14' },
+    { n:'Hiruzen',            lat:35.30, lon:133.63, alt:600,  open:'04-14', full:'04-19' },
+    { n:'Daisen',             lat:35.37, lon:133.55, alt:700,  open:'04-16', full:'04-21' },
+    { n:'Tsuwano',            lat:34.47, lon:131.77, alt:180,  open:'04-01', full:'04-07' },
+    { n:'Kotohira',           lat:34.19, lon:133.81, alt:50,   open:'03-29', full:'04-05' },
+    { n:'Vallée d\u2019Iya',       lat:33.87, lon:133.87, alt:600,  open:'04-09', full:'04-15' },
+    { n:'Ishizuchi (piémont)',lat:33.77, lon:133.11, alt:800,  open:'04-14', full:'04-20' },
+    { n:'Kitakyūshū',         lat:33.88, lon:130.88, alt:20,   open:'03-26', full:'04-03' },
+    { n:'Hirado',             lat:33.37, lon:129.55, alt:50,   open:'03-26', full:'04-03' },
+    { n:'Yabakei',            lat:33.46, lon:131.15, alt:200,  open:'03-29', full:'04-05' },
+    { n:'Hikosan',            lat:33.48, lon:130.93, alt:1000, open:'04-12', full:'04-18' },
+    { n:'Yufuin',             lat:33.26, lon:131.36, alt:450,  open:'04-03', full:'04-09' },
+    { n:'Kurokawa',           lat:33.08, lon:131.15, alt:700,  open:'04-08', full:'04-13' },
+    { n:'Aso',                lat:32.88, lon:131.10, alt:1000, open:'04-13', full:'04-18' },
+    { n:'Unzen',              lat:32.75, lon:130.26, alt:1100, open:'04-12', full:'04-18' },
+    { n:'Takachiho',          lat:32.71, lon:131.30, alt:400,  open:'04-01', full:'04-07' },
+    { n:'Kirishima',          lat:31.93, lon:130.86, alt:1000, open:'04-10', full:'04-16' },
+    { n:'Ebino Kōgen',        lat:31.94, lon:130.85, alt:1200, open:'04-14', full:'04-20' },
+    { n:'Nago',               lat:26.59, lon:127.98, alt:20,   open:'01-15', full:'02-01', kanhi:1 },
+    { n:'Yaedake (Motobu)',   lat:26.65, lon:127.93, alt:300,  open:'01-12', full:'01-28', kanhi:1 }
+  ],
+  alias: {
+    'JP-01':'hokkaido', 'JP-02':'aomori',   'JP-03':'iwate',    'JP-04':'miyagi',
+    'JP-05':'akita',    'JP-06':'yamagata', 'JP-07':'fukushima','JP-08':'ibaraki',
+    'JP-09':'tochigi',  'JP-10':'gunma',    'JP-11':'saitama',  'JP-12':'chiba',
+    'JP-13':'tokyo',    'JP-14':'kanagawa', 'JP-15':'niigata',  'JP-16':'toyama',
+    'JP-17':'ishikawa', 'JP-18':'fukui',    'JP-19':'yamanashi','JP-20':'nagano',
+    'JP-21':'gifu',     'JP-22':'shizuoka', 'JP-23':'aichi',    'JP-24':'mie',
+    'JP-25':'shiga',    'JP-26':'kyoto',    'JP-27':'osaka',    'JP-28':'hyogo',
+    'JP-29':'nara',     'JP-30':'wakayama', 'JP-31':'tottori',  'JP-32':'shimane',
+    'JP-33':'okayama',  'JP-34':'hiroshima','JP-35':'yamaguchi','JP-36':'tokushima',
+    'JP-37':'kagawa',   'JP-38':'ehime',    'JP-39':'kochi',    'JP-40':'fukuoka',
+    'JP-41':'saga',     'JP-42':'nagasaki', 'JP-43':'kumamoto', 'JP-44':'oita',
+    'JP-45':'miyazaki', 'JP-46':'kagoshima','JP-47':'okinawa'
+  }
+};
+window.SakuraMap = (function () {
+  'use strict';
+  const YEAR = 2027, DAY = 86400000, ORIGIN = Date.UTC(YEAR, 2, 1);   // 1er mars
+  const D0 = d('03-15'), D1 = d('05-20');       // fenêtre d'animation
+  const SPEED = 1.0;                            // jours par seconde
+  const STEP = 2;                               // finesse du front, en px
+  const K = 10, POW = 2.6, NOISE = 1.6;         // interpolation des résidus
+  const KA = 4, PA = 3;                         // interpolation de l'altitude
+  const HOLD = 5, SHED = 10;
+  const STAGES = [
+    ['#6f6558', '蕾',       'Bourgeons, pas encore de fleurs'],
+    ['#f4bfd4', '咲き始め', 'Début de floraison'],
+    ['#ff6ea4', '満開',     'Pleine floraison'],
+    ['#f8dde5', '散り始め', 'Chute des pétales'],
+    ['#4f8f4c', '葉桜',     'Feuilles, floraison terminée']
+  ];
+  function d(mmdd) {
+    const [m, dd] = mmdd.split('-').map(Number);
+    return Math.round((Date.UTC(YEAR, m - 1, dd) - ORIGIN) / DAY);
+  }
+  const fmt = n => new Date(ORIGIN + n * DAY)
+    .toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const s2l = new Float32Array(256), l2s = new Uint8Array(4096);
+  for (let i = 0; i < 256; i++) { const c = i / 255; s2l[i] = c <= .04045 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); }
+  for (let i = 0; i < 4096; i++) { const c = i / 4095; l2s[i] = Math.round((c <= .0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - .055) * 255); }
+  const LIN = STAGES.map(s => {
+    const n = parseInt(s[0].slice(1), 16);
+    return [s2l[n >> 16 & 255], s2l[n >> 8 & 255], s2l[n & 255]];
+  });
+  function rgb(s, o) {
+    s = s < 0 ? 0 : s > 4 ? 4 : s;
+    const i = s < 3.999 ? s | 0 : 3, t = s - i, a = LIN[i], b = LIN[i + 1];
+    o[0] = l2s[(a[0] + (b[0] - a[0]) * t) * 4095 | 0];
+    o[1] = l2s[(a[1] + (b[1] - a[1]) * t) * 4095 | 0];
+    o[2] = l2s[(a[2] + (b[2] - a[2]) * t) * 4095 | 0];
+  }
+  const A = [];
+  SAKURA_DATA.prefs.forEach(p => A.push({
+    lat: p.slat != null ? p.slat : p.lat, lon: p.slon != null ? p.slon : p.lon,
+    alt: p.alt, o: d(p.open), g: d(p.full) - d(p.open), kanhi: !!p.kanhi
+  }));
+  SAKURA_DATA.spots.forEach(s => A.push({
+    lat: s.lat, lon: s.lon, alt: s.alt,
+    o: d(s.open), g: d(s.full) - d(s.open), kanhi: !!s.kanhi
+  }));
+  const B = (function () {
+    const M = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+    A.forEach(a => {
+      if (a.kanhi) return;
+      const x = [1, a.lat, a.lon, a.alt / 100];
+      for (let r = 0; r < 4; r++) { for (let c = 0; c < 4; c++) M[r][c] += x[r] * x[c]; M[r][4] += x[r] * a.o; }
+    });
+    for (let c = 0; c < 4; c++) {
+      let pv = c;
+      for (let r = c + 1; r < 4; r++) if (Math.abs(M[r][c]) > Math.abs(M[pv][c])) pv = r;
+      [M[c], M[pv]] = [M[pv], M[c]];
+      const k = M[c][c] || 1e-9;
+      for (let j = c; j < 5; j++) M[c][j] /= k;
+      for (let r = 0; r < 4; r++) if (r !== c) { const f = M[r][c]; for (let j = c; j < 5; j++) M[r][j] -= f * M[c][j]; }
+    }
+    return [M[0][4], M[1][4], M[2][4], M[3][4]];
+  })();
+  const trend = (lat, lon, alt) => B[0] + B[1] * lat + B[2] * lon + B[3] * alt / 100;
+  A.forEach(a => { a.res = a.o - trend(a.lat, a.lon, a.alt); });
+  function h2(x, y) { let h = x * 374761393 + y * 668265263; h = (h ^ h >> 13) * 1274126177; return ((h ^ h >> 16) >>> 0) / 2147483647.5 - 1; }
+  function noise(lat, lon) {
+    let v = 0, amp = .6, fx = 2.2;
+    for (let o = 0; o < 3; o++) {
+      const x = lon * fx, y = lat * fx, xi = Math.floor(x), yi = Math.floor(y);
+      let tx = x - xi, ty = y - yi; tx *= tx * (3 - 2 * tx); ty *= ty * (3 - 2 * ty);
+      const a = h2(xi, yi), b = h2(xi + 1, yi), c = h2(xi, yi + 1), e = h2(xi + 1, yi + 1);
+      v += amp * ((a + (b - a) * tx) * (1 - ty) + (c + (e - c) * tx) * ty);
+      amp *= .5; fx *= 2.5;
+    }
+    return v;
+  }
+  const nn = [];
+  function bloomAt(lat, lon, out) {
+    nn.length = 0;
+    const N = K > KA ? K : KA;
+    for (let i = 0; i < A.length; i++) {
+      const a = A[i], dx = (lon - a.lon) * .78, dy = lat - a.lat;
+      const d2 = dx * dx + dy * dy + 1e-6;
+      if (nn.length < N) { nn.push([d2, a]); nn.sort((u, v) => u[0] - v[0]); }
+      else if (d2 < nn[N - 1][0]) { nn[N - 1] = [d2, a]; nn.sort((u, v) => u[0] - v[0]); }
+    }
+    let wa = 0, alt = 0;
+    for (let i = 0; i < KA; i++) { const q = Math.pow(nn[i][0] + .0025, -PA / 2); wa += q; alt += q * nn[i][1].alt; }
+    let w = 0, acc = 0, gap = 0;
+    for (let i = 0; i < K; i++) {
+      const q = Math.pow(nn[i][0] + .0025, -POW / 2);
+      w += q; acc += q * nn[i][1].res; gap += q * nn[i][1].g;
+    }
+    out[0] = trend(lat, lon, alt / wa) + acc / w + noise(lat, lon) * NOISE;
+    out[1] = gap / w;
+    return out;
+  }
+  function stage(o, g, t) {
+    const f = o + g;                       // 満開
+    if (t <= o) return 0;
+    if (t < f) return (t - o) / g;
+    if (t < f + HOLD) return 1 + (t - f) / HOLD;
+    if (t < f + SHED) return 2 + (t - f - HOLD) / (SHED - HOLD);
+    return t < f + SHED + 10 ? 3 + (t - f - SHED) / 10 : 4;
+  }
+  const label = s => s <= 0 ? 0 : Math.min(4, Math.floor(s) + 1);
+  const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '');
+  const byId = new Map();
+  Object.entries(SAKURA_DATA.alias).forEach(([c, a]) => { byId.set(norm(c), c); byId.set(a, c); });
+  SAKURA_DATA.prefs.forEach(p => { byId.set(norm(p.r), p.c); byId.set(norm(p.ja), p.c); });
+  function codeOf(el) {
+    const t = el.querySelector && el.querySelector('title');
+    for (const v of [el.id, el.getAttribute('data-id'), el.getAttribute('name'),
+                     el.getAttribute('title'), t && t.textContent, el.getAttribute('class')]) {
+      if (!v) continue;
+      const n = norm(v);
+      if (byId.has(n)) return byId.get(n);
+      const m = n.match(/jp(\d{2})/);
+      if (m && SAKURA_DATA.alias['JP-' + m[1]]) return 'JP-' + m[1];
+    }
+    return null;
+  }
+  const mercY = l => Math.log(Math.tan(Math.PI / 4 + l * Math.PI / 360));
+  function fallback() {
+    const W = 700, H = 900, p = 36;
+    const pts = SAKURA_DATA.prefs.map(o => ({ o, x: o.lon, y: mercY(o.lat) }));
+    const xs = pts.map(a => a.x), ys = pts.map(a => a.y);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const s = Math.min((W - 2 * p) / (x1 - x0), (H - 2 * p) / (y1 - y0)), R = 24;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}">` + pts.map(a => {
+      const cx = p + (a.x - x0) * s, cy = H - p - (a.y - y0) * s, dd = [];
+      for (let i = 0; i < 6; i++) {
+        const t = Math.PI / 6 + i * Math.PI / 3;
+        dd.push((i ? 'L' : 'M') + (cx + R * Math.cos(t)).toFixed(1) + ' ' + (cy + R * Math.sin(t)).toFixed(1));
+      }
+      return `<path id="${a.o.c}" d="${dd.join(' ')}Z"></path>`;
+    }).join('') + '</svg>';
+  }
+  async function mount(target, opts) {
+    const root = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!root) throw new Error('SakuraMap : conteneur introuvable');
+    const svgUrl = (opts && opts.svg) || 'map/japan.svg';
+    let inline = root.querySelector('svg');
+    let markup = inline ? inline.outerHTML : null;
+    if (!markup) {
+      try {
+        const r = await fetch(svgUrl, { cache: 'no-store' });
+        if (r.ok) { const t = await r.text(); if (/<svg[\s>]/i.test(t)) markup = t.slice(t.search(/<svg[\s>]/i)); }
+      } catch (e) { /* fichier absent */ }
+    }
+    if (!markup) markup = fallback();
+    root.classList.add('sakura');
+    root.innerHTML =
+      '<div class="sakura-stage">' +
+        '<canvas class="sakura-canvas"></canvas>' +
+        '<div class="sakura-svg">' + markup + '</div>' +
+        '<div class="sakura-tip" hidden></div>' +
+      '</div>' +
+      '<div class="sakura-bar">' +
+        '<button class="sakura-play" type="button" aria-label="Lecture">▶</button>' +
+        '<div class="sakura-track"><input class="sakura-range" type="range" aria-label="Date">' +
+        '<span class="sakura-bubble"></span></div>' +
+      '</div>' +
+      '<ul class="sakura-legend">' + STAGES.map(s =>
+        `<li><i style="background:${s[0]}"></i><b>${s[1]}</b><span>${s[2]}</span></li>`).join('') + '</ul>';
+    const stageEl = root.querySelector('.sakura-stage');
+    const canvas = root.querySelector('.sakura-canvas');
+    const ctx = canvas.getContext('2d');
+    const svg = root.querySelector('.sakura-svg svg');
+    const tip = root.querySelector('.sakura-tip');
+    const range = root.querySelector('.sakura-range');
+    const bubble = root.querySelector('.sakura-bubble');
+    const play = root.querySelector('.sakura-play');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    if (!svg.getAttribute('viewBox')) {
+      svg.setAttribute('viewBox', '0 0 ' + (parseFloat(svg.getAttribute('width')) || 1000) +
+                                    ' ' + (parseFloat(svg.getAttribute('height')) || 1000));
+    }
+    svg.removeAttribute('width'); svg.removeAttribute('height');
+    const shapes = [], mask = new Path2D();
+    svg.querySelectorAll('path, polygon').forEach(el => {
+      const code = codeOf(el) || codeOf(el.parentNode || el);
+      if (!code) return;
+      el.setAttribute('data-sakura', code);
+      const b = el.getBBox();
+      if (b.width || b.height) shapes.push({ code, cx: b.x + b.width / 2, cy: b.y + b.height / 2 });
+      try {
+        if (el.tagName.toLowerCase() === 'path') mask.addPath(new Path2D(el.getAttribute('d')));
+        else {
+          const p = (el.getAttribute('points') || '').trim().split(/[\s,]+/).map(Number), sp = new Path2D();
+          if (p.length >= 6) { sp.moveTo(p[0], p[1]); for (let i = 2; i < p.length; i += 2) sp.lineTo(p[i], p[i + 1]); sp.closePath(); mask.addPath(sp); }
+        }
+      } catch (e) { /* tracé exotique */ }
+    });
+    const proj = (function () {
+      const pref = new Map(SAKURA_DATA.prefs.map(p => [p.c, p]));
+      const u = [], v = [], uu = [], vv = [];
+      shapes.forEach(s => { const p = pref.get(s.code); if (p) { u.push(p.lon); v.push(s.cx); uu.push(mercY(p.lat)); vv.push(s.cy); } });
+      const fit = (x, y) => {
+        const n = x.length; let sx = 0, sy = 0, sxx = 0, sxy = 0;
+        for (let i = 0; i < n; i++) { sx += x[i]; sy += y[i]; sxx += x[i] * x[i]; sxy += x[i] * y[i]; }
+        const a = (n * sxy - sx * sy) / (n * sxx - sx * sx);
+        return [a, (sy - a * sx) / n];
+      };
+      if (u.length < 8) {
+        const b = svg.viewBox.baseVal, L0 = 127.5, L1 = 146.5, M0 = mercY(25.5), M1 = mercY(45.8);
+        const ax = b.width / (L1 - L0), ay = -b.height / (M1 - M0);
+        return { lat: y => 2 * Math.atan(Math.exp((y - b.y - b.height) / ay + M0)) * 57.29578 - 90,
+                 lon: x => (x - b.x) / ax + L0 };
+      }
+      const [ax, bx] = fit(u, v), [ay, by] = fit(uu, vv);
+      return { lat: y => 2 * Math.atan(Math.exp((y - by) / ay)) * 57.29578 - 90, lon: x => (x - bx) / ax };
+    })();
+    let t = D0, playing = false, tr = null, grid = null, dpr = 1, last = 0;
+    const buf = [0, 0, 0], cal = [0, 0];
+    function layout() {
+      const r = stageEl.getBoundingClientRect(), b = svg.viewBox.baseVal;
+      if (!r.width || !r.height) return;
+      const sc = Math.min(r.width / b.width, r.height / b.height);
+      tr = { sc, ox: (r.width - b.width * sc) / 2 - b.x * sc, oy: (r.height - b.height * sc) / 2 - b.y * sc, w: r.width, h: r.height };
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+      canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
+      const cols = Math.ceil(r.width / STEP), rows = Math.ceil(r.height / STEP);
+      const o = new Float32Array(cols * rows), g = new Float32Array(cols * rows);
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = (i * STEP + STEP / 2 - tr.ox) / sc, y = (j * STEP + STEP / 2 - tr.oy) / sc;
+        bloomAt(proj.lat(y), proj.lon(x), cal);
+        o[j * cols + i] = cal[0]; g[j * cols + i] = cal[1];
+      }
+      grid = { cols, rows, o, g, img: ctx.createImageData(cols, rows), tmp: document.createElement('canvas') };
+      grid.tmp.width = cols; grid.tmp.height = rows;
+      draw();
+    }
+    function draw() {
+      if (!grid || !tr) return;
+      const px = grid.img.data;
+      for (let k = 0, n = grid.cols * grid.rows; k < n; k++) {
+        rgb(stage(grid.o[k], grid.g[k], t), buf);
+        px[k * 4] = buf[0]; px[k * 4 + 1] = buf[1]; px[k * 4 + 2] = buf[2]; px[k * 4 + 3] = 255;
+      }
+      grid.tmp.getContext('2d').putImageData(grid.img, 0, 0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(grid.tmp, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.setTransform(tr.sc * dpr, 0, 0, tr.sc * dpr, tr.ox * dpr, tr.oy * dpr);
+      ctx.fill(mask, 'nonzero');
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+      range.value = t;
+      moveBubble();
+    }
+    function moveBubble() {
+      const w = range.offsetWidth, th = 16;
+      bubble.style.left = (th / 2 + (t - D0) / (D1 - D0) * (w - th)) + 'px';
+      bubble.textContent = fmt(t);
+    }
+    function onMove(e) {
+      const el = e.target.closest && e.target.closest('[data-sakura]');
+      if (!el || !tr) { tip.hidden = true; return; }
+      const r = stageEl.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      const pref = SAKURA_DATA.prefs.find(p => p.c === el.getAttribute('data-sakura'));
+      if (!pref) { tip.hidden = true; return; }
+      bloomAt(proj.lat((y - tr.oy) / tr.sc), proj.lon((x - tr.ox) / tr.sc), cal);
+      const st = STAGES[label(stage(cal[0], cal[1], t))];
+      tip.innerHTML = `<b>${pref.ja}</b> ${pref.r}`
+        + `<span><i style="background:${st[0]}"></i>${st[1]} — ${st[2]}</span>`
+        + `<span class="sakura-tip-d">開花 ${fmt(cal[0])} · 満開 ${fmt(cal[0] + cal[1])}</span>`
+        + (pref.kanhi ? '<span class="sakura-tip-d">寒緋桜 — espèce distincte</span>' : '');
+      tip.hidden = false;
+      tip.style.left = Math.min(r.width - tip.offsetWidth - 8, x + 14) + 'px';
+      tip.style.top = Math.max(4, y - 12) + 'px';
+    }
+    function loop(ts) {
+      if (playing) {
+        if (last) { t += (ts - last) / 1000 * SPEED; if (t >= D1) t = D0; draw(); }
+        last = ts;
+      } else last = 0;
+      requestAnimationFrame(loop);
+    }
+    range.min = D0; range.max = D1; range.step = .25; range.value = t;
+    range.addEventListener('input', () => { t = +range.value; draw(); });
+    play.addEventListener('click', () => {
+      playing = !playing;
+      play.textContent = playing ? '❚❚' : '▶';
+      play.setAttribute('aria-label', playing ? 'Pause' : 'Lecture');
+    });
+    stageEl.addEventListener('mousemove', onMove);
+    stageEl.addEventListener('mouseleave', () => { tip.hidden = true; });
+
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(stageEl);
+    else window.addEventListener('resize', layout);
+    layout();
+    requestAnimationFrame(loop);
+    return { get date() { return new Date(ORIGIN + t * DAY); }, redraw: draw };
+  }
+  return { mount };
+})();
+SakuraMap.mount('#sakura');
