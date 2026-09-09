@@ -2209,3 +2209,438 @@ let sakuraMap = null;
 		});
 	}
 })();
+window.KOYO_DATA = {
+  prefs: [
+    { c:'JP-01', ja:'北海道',   r:'Hokkaidō',  lat:43.06, lon:141.35, alt:20,  peak:'10-28', jmc:1 },
+    { c:'JP-02', ja:'青森県',   r:'Aomori',    lat:40.82, lon:140.75, alt:15,  peak:'11-13', jmc:1 },
+    { c:'JP-03', ja:'岩手県',   r:'Iwate',     lat:39.70, lon:141.15, alt:130, peak:'11-13', jmc:1 },
+    { c:'JP-04', ja:'宮城県',   r:'Miyagi',    lat:38.27, lon:140.87, alt:40,  peak:'11-21', jmc:1 },
+    { c:'JP-05', ja:'秋田県',   r:'Akita',     lat:39.72, lon:140.10, alt:20,  peak:'11-12', jmc:1 },
+    { c:'JP-06', ja:'山形県',   r:'Yamagata',  lat:38.24, lon:140.36, alt:150, peak:'11-25', jmc:1 },
+    { c:'JP-07', ja:'福島県',   r:'Fukushima', lat:37.75, lon:140.47, alt:70,  peak:'11-17', jmc:1 },
+    { c:'JP-08', ja:'茨城県',   r:'Ibaraki',   lat:36.37, lon:140.47, alt:30,  peak:'11-20', jmc:1 },
+    { c:'JP-09', ja:'栃木県',   r:'Tochigi',   lat:36.56, lon:139.88, alt:120, peak:'11-20', jmc:1 },
+    { c:'JP-10', ja:'群馬県',   r:'Gunma',     lat:36.39, lon:139.06, alt:110, peak:'12-08', jmc:1 },
+    { c:'JP-11', ja:'埼玉県',   r:'Saitama',   lat:36.15, lon:139.39, alt:30,  peak:'12-01', jmc:1 },
+    { c:'JP-12', ja:'千葉県',   r:'Chiba',     lat:35.73, lon:140.83, alt:20,  peak:'12-12', jmc:1 },
+    { c:'JP-13', ja:'東京都',   r:'Tōkyō',     lat:35.69, lon:139.69, alt:20,  peak:'11-28', jmc:1 },
+    { c:'JP-14', ja:'神奈川県', r:'Kanagawa',  lat:35.45, lon:139.64, alt:15,  peak:'12-14', jmc:1 },
+    { c:'JP-15', ja:'新潟県',   r:'Niigata',   lat:37.90, lon:139.02, alt:10,  peak:'11-15', jmc:1 },
+    { c:'JP-16', ja:'富山県',   r:'Toyama',    lat:36.70, lon:137.21, alt:10,  peak:'11-24', jmc:1 },
+    { c:'JP-17', ja:'石川県',   r:'Ishikawa',  lat:36.56, lon:136.66, alt:30,  peak:'11-24', jmc:1 },
+    { c:'JP-18', ja:'福井県',   r:'Fukui',     lat:36.06, lon:136.22, alt:15,  peak:'11-28', jmc:1 },
+    { c:'JP-19', ja:'山梨県',   r:'Yamanashi', lat:35.66, lon:138.57, alt:270, peak:'11-29', jmc:1 },
+    { c:'JP-20', ja:'長野県',   r:'Nagano',    lat:36.65, lon:138.18, alt:370, peak:'11-12', jmc:1 },
+    { c:'JP-21', ja:'岐阜県',   r:'Gifu',      lat:35.42, lon:136.76, alt:15,  peak:'11-26', jmc:1 },
+    { c:'JP-22', ja:'静岡県',   r:'Shizuoka',  lat:34.98, lon:138.38, alt:15,  peak:'12-05', jmc:1 },
+    { c:'JP-23', ja:'愛知県',   r:'Aichi',     lat:35.18, lon:136.91, alt:15,  peak:'11-28', jmc:1 },
+    { c:'JP-24', ja:'三重県',   r:'Mie',       lat:34.73, lon:136.51, alt:10,  peak:'11-25', jmc:1 },
+    { c:'JP-25', ja:'滋賀県',   r:'Shiga',     lat:35.27, lon:136.24, alt:90,  peak:'11-28', jmc:1 },
+    { c:'JP-26', ja:'京都府',   r:'Kyōto',     lat:35.01, lon:135.77, alt:50,  peak:'12-05', jmc:1 },
+    { c:'JP-27', ja:'大阪府',   r:'Ōsaka',     lat:34.69, lon:135.50, alt:10,  peak:'12-01', jmc:1 },
+    { c:'JP-28', ja:'兵庫県',   r:'Hyōgo',     lat:34.69, lon:135.20, alt:15,  peak:'12-01', jmc:1 },
+    { c:'JP-29', ja:'奈良県',   r:'Nara',      lat:34.68, lon:135.83, alt:100, peak:'11-21', jmc:1 },
+    { c:'JP-30', ja:'和歌山県', r:'Wakayama',  lat:34.23, lon:135.17, alt:15,  peak:'12-06', jmc:1 },
+    { c:'JP-31', ja:'鳥取県',   r:'Tottori',   lat:35.50, lon:134.24, alt:10,  peak:'11-30', jmc:1 },
+    { c:'JP-32', ja:'島根県',   r:'Shimane',   lat:35.47, lon:133.05, alt:10,  peak:'11-24' },
+    { c:'JP-33', ja:'岡山県',   r:'Okayama',   lat:34.66, lon:133.93, alt:10,  peak:'11-26' },
+    { c:'JP-34', ja:'広島県',   r:'Hiroshima', lat:34.39, lon:132.46, alt:10,  peak:'11-22', jmc:1 },
+    { c:'JP-35', ja:'山口県',   r:'Yamaguchi', lat:34.19, lon:131.47, alt:20,  peak:'11-28' },
+    { c:'JP-36', ja:'徳島県',   r:'Tokushima', lat:34.07, lon:134.55, alt:10,  peak:'11-30' },
+    { c:'JP-37', ja:'香川県',   r:'Kagawa',    lat:34.34, lon:134.05, alt:10,  peak:'11-28' },
+    { c:'JP-38', ja:'愛媛県',   r:'Ehime',     lat:33.84, lon:132.77, alt:30,  peak:'11-30' },
+    { c:'JP-39', ja:'高知県',   r:'Kōchi',     lat:33.56, lon:133.53, alt:10,  peak:'12-02', jmc:1 },
+    { c:'JP-40', ja:'福岡県',   r:'Fukuoka',   lat:33.59, lon:130.40, alt:10,  peak:'12-01', jmc:1 },
+    { c:'JP-41', ja:'佐賀県',   r:'Saga',      lat:33.25, lon:130.30, alt:10,  peak:'12-01' },
+    { c:'JP-42', ja:'長崎県',   r:'Nagasaki',  lat:32.75, lon:129.87, alt:20,  peak:'12-05' },
+    { c:'JP-43', ja:'熊本県',   r:'Kumamoto',  lat:32.80, lon:130.71, alt:30,  peak:'12-03' },
+    { c:'JP-44', ja:'大分県',   r:'Ōita',      lat:33.24, lon:131.61, alt:10,  peak:'11-28' },
+    { c:'JP-45', ja:'宮崎県',   r:'Miyazaki',  lat:31.91, lon:131.42, alt:10,  peak:'12-08' },
+    { c:'JP-46', ja:'鹿児島県', r:'Kagoshima', lat:31.60, lon:130.56, alt:10,  peak:'12-15', jmc:1 },
+    { c:'JP-47', ja:'沖縄県',   r:'Okinawa',   lat:26.21, lon:127.68, alt:10,  peak:null }
+  ],
+  spots: [
+    { n:'Asahikawa',            lat:43.77, lon:142.37, alt:110,  peak:'10-23', jmc:1 },
+    { n:'Obihiro',              lat:42.92, lon:143.20, alt:40,   peak:'10-20', jmc:1 },
+    { n:'Kushiro',              lat:42.98, lon:144.38, alt:30,   peak:'10-16', jmc:1 },
+    { n:'Muroran',              lat:42.32, lon:140.97, alt:40,   peak:'11-07', jmc:1 },
+    { n:'Hakodate',             lat:41.77, lon:140.73, alt:30,   peak:'11-02', jmc:1 },
+    { n:'Daisetsuzan (Kurodake)', lat:43.71, lon:142.99, alt:1800, peak:'09-21' },
+    { n:'Asahidake',            lat:43.66, lon:142.85, alt:1600, peak:'09-23' },
+    { n:'Sōunkyō',              lat:43.71, lon:142.87, alt:670,  peak:'10-05' },
+    { n:'Shiretoko',            lat:44.08, lon:145.09, alt:740,  peak:'10-03' },
+    { n:'Akanko',               lat:43.45, lon:144.10, alt:420,  peak:'10-01' },
+    { n:'Jōzankei',             lat:42.96, lon:141.16, alt:300,  peak:'10-17' },
+    { n:'Hakkōda',              lat:40.66, lon:140.88, alt:1300, peak:'10-10' },
+    { n:'Hachimantai',          lat:39.96, lon:140.85, alt:1400, peak:'10-09' },
+    { n:'Towada / Oirase',      lat:40.47, lon:140.90, alt:400,  peak:'10-26' },
+    { n:'Akita-Komagatake',     lat:39.76, lon:140.80, alt:1500, peak:'10-06' },
+    { n:'Chōkai',               lat:39.10, lon:140.05, alt:1500, peak:'10-09' },
+    { n:'Gassan',               lat:38.55, lon:140.03, alt:1600, peak:'10-07' },
+    { n:'Zaō Onsen',            lat:38.16, lon:140.40, alt:900,  peak:'10-18' },
+    { n:'Naruko-kyō',           lat:38.75, lon:140.72, alt:300,  peak:'11-02' },
+    { n:'Bandai-Azuma',         lat:37.72, lon:140.25, alt:1500, peak:'10-08' },
+    { n:'Urabandai',            lat:37.66, lon:140.07, alt:800,  peak:'10-27' },
+    { n:'Oze-ga-hara',          lat:36.91, lon:139.24, alt:1400, peak:'10-02' },
+    { n:'Tanigawa-dake',        lat:36.84, lon:138.93, alt:1300, peak:'10-13' },
+    { n:'Nasu-dake',            lat:37.12, lon:139.97, alt:1500, peak:'10-08' },
+    { n:'Nikkō / Irohazaka',    lat:36.74, lon:139.51, alt:1300, peak:'10-18' },
+    { n:'Chūzenji',             lat:36.73, lon:139.48, alt:1270, peak:'10-20' },
+    { n:'Kusatsu',              lat:36.62, lon:138.60, alt:1150, peak:'10-22' },
+    { n:'Shiobara',             lat:36.98, lon:139.80, alt:600,  peak:'11-06' },
+    { n:'Chichibu / Nagatoro',  lat:36.09, lon:139.11, alt:250,  peak:'11-22' },
+    { n:'Takao-san',            lat:35.63, lon:139.24, alt:600,  peak:'11-24' },
+    { n:'Okutama',              lat:35.81, lon:139.10, alt:600,  peak:'11-18' },
+    { n:'Hakone / Ashi',        lat:35.21, lon:139.02, alt:730,  peak:'11-16' },
+    { n:'Tanzawa',              lat:35.47, lon:139.15, alt:900,  peak:'11-12' },
+    { n:'Tateyama / Murodō',    lat:36.58, lon:137.60, alt:2450, peak:'09-25' },
+    { n:'Kurobe-daira',         lat:36.57, lon:137.65, alt:1830, peak:'10-07' },
+    { n:'Senjōjiki',            lat:35.78, lon:137.81, alt:2610, peak:'09-27' },
+    { n:'Tsugaike',             lat:36.76, lon:137.80, alt:1900, peak:'09-29' },
+    { n:'Shin-Hotaka',          lat:36.24, lon:137.56, alt:2100, peak:'10-05' },
+    { n:'Shiga Kōgen',          lat:36.72, lon:138.51, alt:1600, peak:'10-08' },
+    { n:'Norikura',             lat:36.11, lon:137.62, alt:1500, peak:'10-10' },
+    { n:'Kamikōchi',            lat:36.25, lon:137.63, alt:1500, peak:'10-22' },
+    { n:'Karuizawa',            lat:36.35, lon:138.60, alt:940,  peak:'11-05' },
+    { n:'Takayama / Hida',      lat:36.14, lon:137.25, alt:570,  peak:'11-06' },
+    { n:'Naeba',                lat:36.79, lon:138.79, alt:1300, peak:'10-16' },
+    { n:'Kiyotsu-kyō',          lat:37.02, lon:138.79, alt:400,  peak:'10-31' },
+    { n:'Fuji 5e station',      lat:35.40, lon:138.73, alt:2300, peak:'10-05' },
+    { n:'Kawaguchiko',          lat:35.51, lon:138.76, alt:840,  peak:'11-13' },
+    { n:'Shōsenkyō',            lat:35.74, lon:138.53, alt:700,  peak:'11-14' },
+    { n:'Kōrankei',             lat:35.15, lon:137.42, alt:300,  peak:'11-25' },
+    { n:'Sunmata-kyō',          lat:35.22, lon:138.14, alt:600,  peak:'11-20' },
+    { n:'Hakusan',              lat:36.15, lon:136.77, alt:1500, peak:'10-11' },
+    { n:'Ōdaigahara',           lat:34.18, lon:136.10, alt:1600, peak:'10-28' },
+    { n:'Kōyasan',              lat:34.21, lon:135.58, alt:850,  peak:'11-12' },
+    { n:'Yoshino-yama',         lat:34.36, lon:135.86, alt:600,  peak:'11-17' },
+    { n:'Hiei-zan',             lat:35.07, lon:135.83, alt:800,  peak:'11-18' },
+    { n:'Ōhara',                lat:35.12, lon:135.83, alt:250,  peak:'11-27' },
+    { n:'Arashiyama',           lat:35.01, lon:135.67, alt:50,   peak:'12-04' },
+    { n:'Rokkō-san',            lat:34.78, lon:135.26, alt:900,  peak:'11-16' },
+    { n:'Minoo',                lat:34.85, lon:135.47, alt:200,  peak:'11-27' },
+    { n:'Daisen',               lat:35.37, lon:133.55, alt:900,  peak:'11-06' },
+    { n:'Hiruzen',              lat:35.30, lon:133.63, alt:600,  peak:'11-13' },
+    { n:'Sandan-kyō',           lat:34.62, lon:132.16, alt:400,  peak:'11-13' },
+    { n:'Taishaku-kyō',         lat:34.85, lon:133.20, alt:400,  peak:'11-14' },
+    { n:'Miyajima',             lat:34.28, lon:132.32, alt:50,   peak:'11-25' },
+    { n:'Ishizuchi',            lat:33.77, lon:133.11, alt:1700, peak:'10-22' },
+    { n:'Omogo-kei',            lat:33.68, lon:133.11, alt:700,  peak:'11-10' },
+    { n:'Iya / Ōboke',          lat:33.87, lon:133.87, alt:600,  peak:'11-15' },
+    { n:'Kankakei',             lat:34.50, lon:134.28, alt:600,  peak:'11-18' },
+    { n:'Hikosan',              lat:33.48, lon:130.93, alt:1000, peak:'11-12' },
+    { n:'Kujū',                 lat:33.08, lon:131.25, alt:1400, peak:'10-28' },
+    { n:'Aso',                  lat:32.88, lon:131.10, alt:1000, peak:'11-05' },
+    { n:'Kikuchi-keikoku',      lat:32.98, lon:130.90, alt:600,  peak:'11-14' },
+    { n:'Kurokawa',             lat:33.08, lon:131.15, alt:700,  peak:'11-10' },
+    { n:'Yabakei',              lat:33.46, lon:131.15, alt:200,  peak:'11-18' },
+    { n:'Yufuin',               lat:33.26, lon:131.36, alt:450,  peak:'11-15' },
+    { n:'Takachiho-kyō',        lat:32.71, lon:131.30, alt:400,  peak:'11-20' },
+    { n:'Unzen',                lat:32.75, lon:130.26, alt:1100, peak:'11-07' },
+    { n:'Ebino Kōgen',          lat:31.94, lon:130.85, alt:1200, peak:'11-08' },
+    { n:'Kirishima',            lat:31.93, lon:130.86, alt:1000, peak:'11-12' }
+  ],
+  alias: {
+    'JP-01':'hokkaido', 'JP-02':'aomori',   'JP-03':'iwate',    'JP-04':'miyagi',
+    'JP-05':'akita',    'JP-06':'yamagata', 'JP-07':'fukushima','JP-08':'ibaraki',
+    'JP-09':'tochigi',  'JP-10':'gunma',    'JP-11':'saitama',  'JP-12':'chiba',
+    'JP-13':'tokyo',    'JP-14':'kanagawa', 'JP-15':'niigata',  'JP-16':'toyama',
+    'JP-17':'ishikawa', 'JP-18':'fukui',    'JP-19':'yamanashi','JP-20':'nagano',
+    'JP-21':'gifu',     'JP-22':'shizuoka', 'JP-23':'aichi',    'JP-24':'mie',
+    'JP-25':'shiga',    'JP-26':'kyoto',    'JP-27':'osaka',    'JP-28':'hyogo',
+    'JP-29':'nara',     'JP-30':'wakayama', 'JP-31':'tottori',  'JP-32':'shimane',
+    'JP-33':'okayama',  'JP-34':'hiroshima','JP-35':'yamaguchi','JP-36':'tokushima',
+    'JP-37':'kagawa',   'JP-38':'ehime',    'JP-39':'kochi',    'JP-40':'fukuoka',
+    'JP-41':'saga',     'JP-42':'nagasaki', 'JP-43':'kumamoto', 'JP-44':'oita',
+    'JP-45':'miyazaki', 'JP-46':'kagoshima','JP-47':'okinawa'
+  }
+};
+window.KoyoMap = (function () {
+  'use strict';
+  const YEAR = 2026, DAY = 86400000, ORIGIN = Date.UTC(YEAR, 8, 1);
+  const D0 = d('09-25'), D1 = d('12-10');
+  const SPEED = 1.0;
+  const STEP = 2;
+  const K = 10, POW = 2.6, NOISE = 1.6;
+  const KA = 4, PA = 3;
+  const OFF = { start: -14, fade: 9, fall: 19 };
+  const STAGES = [
+    ['#2f7d32', '青葉',       'Pas encore de changement'],
+    ['#e2a33c', '色づき始め', 'Début du changement'],
+    ['#c62828', '紅葉見頃',   'Pic du kōyō'],
+    ['#8d5524', '色あせ始め', 'Début de la fin'],
+    ['#9e9e9e', '落葉',       'Plus de couleurs']
+  ];
+  function d(mmdd) {
+    const [m, dd] = mmdd.split('-').map(Number);
+    return Math.round((Date.UTC(m < 6 ? YEAR + 1 : YEAR, m - 1, dd) - ORIGIN) / DAY);
+  }
+  const fmt = n => new Date(ORIGIN + n * DAY)
+    .toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const s2l = new Float32Array(256), l2s = new Uint8Array(4096);
+  for (let i = 0; i < 256; i++) { const c = i / 255; s2l[i] = c <= .04045 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); }
+  for (let i = 0; i < 4096; i++) { const c = i / 4095; l2s[i] = Math.round((c <= .0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - .055) * 255); }
+  const LIN = STAGES.map(s => {
+    const n = parseInt(s[0].slice(1), 16);
+    return [s2l[n >> 16 & 255], s2l[n >> 8 & 255], s2l[n & 255]];
+  });
+  function rgb(s, o) {
+    s = s < 0 ? 0 : s > 4 ? 4 : s;
+    const i = s < 3.999 ? s | 0 : 3, t = s - i, a = LIN[i], b = LIN[i + 1];
+    o[0] = l2s[(a[0] + (b[0] - a[0]) * t) * 4095 | 0];
+    o[1] = l2s[(a[1] + (b[1] - a[1]) * t) * 4095 | 0];
+    o[2] = l2s[(a[2] + (b[2] - a[2]) * t) * 4095 | 0];
+  }
+  const A = [];   // { lat, lon, alt, p (pic, en jours), res }
+  KOYO_DATA.prefs.forEach(p => { if (p.peak) A.push({ lat: p.lat, lon: p.lon, alt: p.alt, p: d(p.peak) }); });
+  KOYO_DATA.spots.forEach(s => A.push({ lat: s.lat, lon: s.lon, alt: s.alt, p: d(s.peak) }));
+  const B = (function () {
+    const M = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+    A.forEach(a => {
+      const x = [1, a.lat, a.lon, a.alt / 100];
+      for (let r = 0; r < 4; r++) { for (let c = 0; c < 4; c++) M[r][c] += x[r] * x[c]; M[r][4] += x[r] * a.p; }
+    });
+    for (let c = 0; c < 4; c++) {
+      let pv = c;
+      for (let r = c + 1; r < 4; r++) if (Math.abs(M[r][c]) > Math.abs(M[pv][c])) pv = r;
+      [M[c], M[pv]] = [M[pv], M[c]];
+      const k = M[c][c] || 1e-9;
+      for (let j = c; j < 5; j++) M[c][j] /= k;
+      for (let r = 0; r < 4; r++) if (r !== c) { const f = M[r][c]; for (let j = c; j < 5; j++) M[r][j] -= f * M[c][j]; }
+    }
+    return [M[0][4], M[1][4], M[2][4], M[3][4]];
+  })();
+  const trend = (lat, lon, alt) => B[0] + B[1] * lat + B[2] * lon + B[3] * alt / 100;
+  A.forEach(a => { a.res = a.p - trend(a.lat, a.lon, a.alt); });
+  function h2(x, y) { let h = x * 374761393 + y * 668265263; h = (h ^ h >> 13) * 1274126177; return ((h ^ h >> 16) >>> 0) / 2147483647.5 - 1; }
+  function noise(lat, lon) {
+    let v = 0, amp = .6, fx = 2.2;
+    for (let o = 0; o < 3; o++) {
+      const x = lon * fx, y = lat * fx, xi = Math.floor(x), yi = Math.floor(y);
+      let tx = x - xi, ty = y - yi; tx *= tx * (3 - 2 * tx); ty *= ty * (3 - 2 * ty);
+      const a = h2(xi, yi), b = h2(xi + 1, yi), c = h2(xi, yi + 1), e = h2(xi + 1, yi + 1);
+      v += amp * ((a + (b - a) * tx) * (1 - ty) + (c + (e - c) * tx) * ty);
+      amp *= .5; fx *= 2.5;
+    }
+    return v;
+  }
+  const nn = [];
+  function peakAt(lat, lon) {
+    nn.length = 0;
+    const N = K > KA ? K : KA;
+    for (let i = 0; i < A.length; i++) {
+      const a = A[i], dx = (lon - a.lon) * .78, dy = lat - a.lat;
+      const d2 = dx * dx + dy * dy + 1e-6;
+      if (nn.length < N) { nn.push([d2, a]); nn.sort((u, v) => u[0] - v[0]); }
+      else if (d2 < nn[N - 1][0]) { nn[N - 1] = [d2, a]; nn.sort((u, v) => u[0] - v[0]); }
+    }
+    let wa = 0, alt = 0;
+    for (let i = 0; i < KA; i++) { const q = Math.pow(nn[i][0] + .0025, -PA / 2); wa += q; alt += q * nn[i][1].alt; }
+    let w = 0, acc = 0;
+    for (let i = 0; i < K; i++) { const q = Math.pow(nn[i][0] + .0025, -POW / 2); w += q; acc += q * nn[i][1].res; }
+    return trend(lat, lon, alt / wa) + acc / w + noise(lat, lon) * NOISE;
+  }
+  function stage(p, t) {
+    const s = p + OFF.start, f = p + OFF.fade, l = p + OFF.fall;
+    if (t <= s) return 0;
+    if (t < p) return (t - s) / (p - s);
+    if (t < f) return 1 + (t - p) / (f - p);
+    if (t < l) return 2 + (t - f) / (l - f);
+    return t < l + 10 ? 3 + (t - l) / 10 : 4;
+  }
+  const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '');
+  const byId = new Map();
+  Object.entries(KOYO_DATA.alias).forEach(([c, a]) => { byId.set(norm(c), c); byId.set(a, c); });
+  KOYO_DATA.prefs.forEach(p => { byId.set(norm(p.r), p.c); byId.set(norm(p.ja), p.c); });
+  function codeOf(el) {
+    const t = el.querySelector && el.querySelector('title');
+    for (const v of [el.id, el.getAttribute('data-id'), el.getAttribute('name'),
+                     el.getAttribute('title'), t && t.textContent, el.getAttribute('class')]) {
+      if (!v) continue;
+      const n = norm(v);
+      if (byId.has(n)) return byId.get(n);
+      const m = n.match(/jp(\d{2})/);
+      if (m && KOYO_DATA.alias['JP-' + m[1]]) return 'JP-' + m[1];
+    }
+    return null;
+  }
+  const mercY = l => Math.log(Math.tan(Math.PI / 4 + l * Math.PI / 360));
+  function fallback() {
+    const W = 700, H = 900, p = 36;
+    const pts = KOYO_DATA.prefs.map(o => ({ o, x: o.lon, y: mercY(o.lat) }));
+    const xs = pts.map(a => a.x), ys = pts.map(a => a.y);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const s = Math.min((W - 2 * p) / (x1 - x0), (H - 2 * p) / (y1 - y0)), R = 24;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}">` + pts.map(a => {
+      const cx = p + (a.x - x0) * s, cy = H - p - (a.y - y0) * s, dd = [];
+      for (let i = 0; i < 6; i++) {
+        const t = Math.PI / 6 + i * Math.PI / 3;
+        dd.push((i ? 'L' : 'M') + (cx + R * Math.cos(t)).toFixed(1) + ' ' + (cy + R * Math.sin(t)).toFixed(1));
+      }
+      return `<path id="${a.o.c}" d="${dd.join(' ')}Z"></path>`;
+    }).join('') + '</svg>';
+  }
+  async function mount(target, opts) {
+    const root = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!root) throw new Error('KoyoMap : conteneur introuvable');
+    const svgUrl = (opts && opts.svg) || 'map/japan.svg';
+    let inline = root.querySelector('svg');
+    let markup = inline ? inline.outerHTML : null;
+    if (!markup) {
+      try {
+        const r = await fetch(svgUrl, { cache: 'no-store' });
+        if (r.ok) { const t = await r.text(); if (/<svg[\s>]/i.test(t)) markup = t.slice(t.search(/<svg[\s>]/i)); }
+      } catch (e) { /* fichier absent */ }
+    }
+    if (!markup) markup = fallback();
+    root.classList.add('koyo');
+    root.innerHTML =
+      '<div class="koyo-stage">' +
+        '<canvas class="koyo-canvas"></canvas>' +
+        '<div class="koyo-svg">' + markup + '</div>' +
+        '<div class="koyo-tip" hidden></div>' +
+      '</div>' +
+      '<div class="koyo-bar">' +
+        '<button class="koyo-play" type="button" aria-label="Lecture">▶</button>' +
+        '<div class="koyo-track"><input class="koyo-range" type="range" aria-label="Date">' +
+        '<span class="koyo-bubble"></span></div>' +
+      '</div>' +
+      '<ul class="koyo-legend">' + STAGES.map(s =>
+        `<li><i style="background:${s[0]}"></i><b>${s[1]}</b><span>${s[2]}</span></li>`).join('') + '</ul>';
+    const stageEl = root.querySelector('.koyo-stage');
+    const canvas = root.querySelector('.koyo-canvas');
+    const ctx = canvas.getContext('2d');
+    const svg = root.querySelector('.koyo-svg svg');
+    const tip = root.querySelector('.koyo-tip');
+    const range = root.querySelector('.koyo-range');
+    const bubble = root.querySelector('.koyo-bubble');
+    const play = root.querySelector('.koyo-play');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    if (!svg.getAttribute('viewBox')) {
+      svg.setAttribute('viewBox', '0 0 ' + (parseFloat(svg.getAttribute('width')) || 1000) +
+                                    ' ' + (parseFloat(svg.getAttribute('height')) || 1000));
+    }
+    svg.removeAttribute('width'); svg.removeAttribute('height');
+    const shapes = [], mask = new Path2D();
+    svg.querySelectorAll('path, polygon').forEach(el => {
+      const code = codeOf(el) || codeOf(el.parentNode || el);
+      if (!code) return;
+      el.setAttribute('data-koyo', code);
+      const b = el.getBBox();
+      if (b.width || b.height) shapes.push({ code, cx: b.x + b.width / 2, cy: b.y + b.height / 2 });
+      try {
+        if (el.tagName.toLowerCase() === 'path') mask.addPath(new Path2D(el.getAttribute('d')));
+        else {
+          const p = (el.getAttribute('points') || '').trim().split(/[\s,]+/).map(Number), sp = new Path2D();
+          if (p.length >= 6) { sp.moveTo(p[0], p[1]); for (let i = 2; i < p.length; i += 2) sp.lineTo(p[i], p[i + 1]); sp.closePath(); mask.addPath(sp); }
+        }
+      } catch (e) { /* tracé exotique */ }
+    });
+    const proj = (function () {
+      const pref = new Map(KOYO_DATA.prefs.map(p => [p.c, p]));
+      const u = [], v = [], uu = [], vv = [];
+      shapes.forEach(s => { const p = pref.get(s.code); if (p) { u.push(p.lon); v.push(s.cx); uu.push(mercY(p.lat)); vv.push(s.cy); } });
+      const fit = (x, y) => {
+        const n = x.length; let sx = 0, sy = 0, sxx = 0, sxy = 0;
+        for (let i = 0; i < n; i++) { sx += x[i]; sy += y[i]; sxx += x[i] * x[i]; sxy += x[i] * y[i]; }
+        const a = (n * sxy - sx * sy) / (n * sxx - sx * sx);
+        return [a, (sy - a * sx) / n];
+      };
+      if (u.length < 8) {
+        const b = svg.viewBox.baseVal, L0 = 127.5, L1 = 146.5, M0 = mercY(25.5), M1 = mercY(45.8);
+        const ax = b.width / (L1 - L0), ay = -b.height / (M1 - M0);
+        return { lat: y => 2 * Math.atan(Math.exp((y - b.y - b.height) / ay + M0)) * 57.29578 - 90,
+                 lon: x => (x - b.x) / ax + L0 };
+      }
+      const [ax, bx] = fit(u, v), [ay, by] = fit(uu, vv);
+      return { lat: y => 2 * Math.atan(Math.exp((y - by) / ay)) * 57.29578 - 90, lon: x => (x - bx) / ax };
+    })();
+    let t = D0, playing = false, tr = null, grid = null, dpr = 1, last = 0;
+    const buf = [0, 0, 0];
+    function layout() {
+      const r = stageEl.getBoundingClientRect(), b = svg.viewBox.baseVal;
+      if (!r.width || !r.height) return;
+      const sc = Math.min(r.width / b.width, r.height / b.height);
+      tr = { sc, ox: (r.width - b.width * sc) / 2 - b.x * sc, oy: (r.height - b.height * sc) / 2 - b.y * sc, w: r.width, h: r.height };
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+      canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
+      const cols = Math.ceil(r.width / STEP), rows = Math.ceil(r.height / STEP);
+      const p = new Float32Array(cols * rows);
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = (i * STEP + STEP / 2 - tr.ox) / sc, y = (j * STEP + STEP / 2 - tr.oy) / sc;
+        p[j * cols + i] = peakAt(proj.lat(y), proj.lon(x));
+      }
+      grid = { cols, rows, p, img: ctx.createImageData(cols, rows), tmp: document.createElement('canvas') };
+      grid.tmp.width = cols; grid.tmp.height = rows;
+      draw();
+    }
+    function draw() {
+      if (!grid || !tr) return;
+      const px = grid.img.data;
+      for (let k = 0, n = grid.cols * grid.rows; k < n; k++) {
+        rgb(stage(grid.p[k], t), buf);
+        px[k * 4] = buf[0]; px[k * 4 + 1] = buf[1]; px[k * 4 + 2] = buf[2]; px[k * 4 + 3] = 255;
+      }
+      grid.tmp.getContext('2d').putImageData(grid.img, 0, 0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(grid.tmp, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.setTransform(tr.sc * dpr, 0, 0, tr.sc * dpr, tr.ox * dpr, tr.oy * dpr);
+      ctx.fill(mask, 'nonzero');
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+      range.value = t;
+      moveBubble();
+    }
+    function moveBubble() {
+      const w = range.offsetWidth, th = 16;
+      const pct = (t - D0) / (D1 - D0);
+      bubble.style.left = (th / 2 + pct * (w - th)) + 'px';
+      bubble.textContent = fmt(t);
+    }
+    function onMove(e) {
+      const el = e.target.closest && e.target.closest('[data-koyo]');
+      if (!el || !tr) { tip.hidden = true; return; }
+      const r = stageEl.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      const pref = KOYO_DATA.prefs.find(p => p.c === el.getAttribute('data-koyo'));
+      if (!pref) { tip.hidden = true; return; }
+      let html = `<b>${pref.ja}</b> ${pref.r}`;
+      if (pref.peak) {
+        const p = peakAt(proj.lat((y - tr.oy) / tr.sc), proj.lon((x - tr.ox) / tr.sc));
+        const st = STAGES[Math.max(0, Math.min(4, Math.round(stage(p, t))))];
+        html += `<span><i style="background:${st[0]}"></i>${st[1]} — ${st[2]}</span>`
+              + `<span class="koyo-tip-peak">見頃 : ${fmt(p)}</span>`;
+      } else html += '<span>Pas de kōyō caducifolié</span>';
+      tip.innerHTML = html;
+      tip.hidden = false;
+      tip.style.left = Math.min(r.width - tip.offsetWidth - 8, x + 14) + 'px';
+      tip.style.top = Math.max(4, y - 12) + 'px';
+    }
+    function loop(ts) {
+      if (playing) {
+        if (last) { t += (ts - last) / 1000 * SPEED; if (t >= D1) t = D0; draw(); }
+        last = ts;
+      } else last = 0;
+      requestAnimationFrame(loop);
+    }
+    range.min = D0; range.max = D1; range.step = .25; range.value = t;
+    range.addEventListener('input', () => { t = +range.value; draw(); });
+    play.addEventListener('click', () => {
+      playing = !playing;
+      play.textContent = playing ? '❚❚' : '▶';
+      play.setAttribute('aria-label', playing ? 'Pause' : 'Lecture');
+    });
+    stageEl.addEventListener('mousemove', onMove);
+    stageEl.addEventListener('mouseleave', () => { tip.hidden = true; });
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(stageEl);
+    else window.addEventListener('resize', layout);
+    layout();
+    requestAnimationFrame(loop);
+    return { get date() { return new Date(ORIGIN + t * DAY); }, redraw: draw };
+  }
+  return { mount };
+})();
+KoyoMap.mount('#koyo');
