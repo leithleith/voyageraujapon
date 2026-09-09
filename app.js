@@ -2189,7 +2189,7 @@ let sakuraMap = null;
 			}
 		});
 		if (tabId === 'topo') initTopoMap();
-		if (tabId === 'koyo') initKoyoMap();
+		if (tabId === 'kouyou') initKoyoMap();
 		if (tabId === 'sakura') initSakuraMap();
 		navLinks.forEach((link) => {
 			link.setAttribute('aria-selected', link.getAttribute('data-tab') === tabId ? 'true' : 'false');
